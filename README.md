@@ -109,8 +109,24 @@ function stringSplitter(str, separator) {
 # 6. Fibonacci
 Write a recursive function that prints the Fibonacci sequence of a given number. The Fibonacci sequence is a series of numbers in which each number is the sum of the 2 preceding numbers. For example, the 7th Fibonacci number in a Fibonacci sequence is 13. The sequence looks as follows: 1, 1, 2, 3, 5, 8, 13.
 
+```js
+function fibonacci(n) { // Return the nth Fibonacci number
+  if (n <= 1) {return n};
+
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+```
+
 # 7. Factorial
 Write a recursive function that finds the factorial of a given number. The factorial of a number can be found by multiplying that number by each number between itself and 1. For example, the factorial of 5 is 5 * 4 * 3 * 2 * 1 = 120.
+
+```js
+function factorial(n) {
+  if (n === 1) {return n};
+
+  return n * factorial(n - 1);
+}
+```
 
 # 8. Find a way out of the maze
 You have entered a Maze and need to find your way out of it. There are more than one possible paths through the Maze to the single exit point. Write a recursive function that will help you find a possible path though the maze.
@@ -301,7 +317,7 @@ Zuckerberg
             Wes
 ```
 
-12. Binary Representation
+# 12. Binary Representation
 Write a recursive function that prints out the binary representation of a given number. For example, the program should take 3 as an input and print 11 as output, or 25 as an input and print 11001 as an output. Note that the binary representation of 0 should be 0.
 
 ```js
