@@ -11,13 +11,17 @@ All sheep jumped over the fence
 ```js
 function countSheep(n) {
   if (n === 0) {
-    console.log("All sheep jumped over the fence");
-    return;
+    return "All sheep jumped over the fence";
   }
+  let result = n + ': Another sheep jumps over the fence\n'
 
-  console.log(n + ': Another sheep jumps over the fence');
-  return countSheep(n - 1);
+  return result + countSheep(n - 1);
 }
+countSheep(3)
+// 3: Another sheep jumps over the fence
+// 2: Another sheep jumps over the fence
+// 1: Another sheep jumps over the fence
+// All sheep jumped over the fence
 ```
 
 # 2. Power Calculator
@@ -29,13 +33,17 @@ powerCalculator(10,-2) should return exponent should be >= 0
 ```js
 function powerCalculator(base, exponent) {
   if (exponent <= 0) {
-    return 'exponent should be >= 0'
+    return 'exponent should be >= 0';
   }
 
   if (exponent === 1) {return base}
   
-  return base * powerCalculator(base, exponent - 1)
+  return base * powerCalculator(base, exponent - 1);
 }
+powerCalculator(10,2)
+// 100
+powerCalculator(10, -2)
+// exponent should be >= 0
 ```
 
 # 3. Reverse String
@@ -52,6 +60,8 @@ function reverseString(str) {
   // Concatinate the chars in reverse order
   return reverseString(remainingStr) + firstChar;
 }
+reverseString("Hello World")
+// dlroW olleH
 ```
 
 # 4. nth Triangular Number
@@ -98,12 +108,15 @@ function stringSplitter(str, separator) {
 
   // We go all the way down to the base case to get the array that we will use to contain all of our separated strings.
   const arr = stringSplitter(remainingStr, separator);
+
   // The reason this works is because the functions resolve in order during the backward phase. That is to say, each function returns an array to the function that called it.
 
   arr.unshift(splitStr);
 
   return arr;
 }
+stringSplitter("02/20/2020");
+// [ '02/20/2020' ]
 ```
 
 # 6. Fibonacci
@@ -111,7 +124,7 @@ Write a recursive function that prints the Fibonacci sequence of a given number.
 
 ```js
 function fibonacci(n) { // Return the nth Fibonacci number
-  if (n <= 1) {return n};
+  if (n < 2) {return n};
 
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
@@ -197,15 +210,20 @@ I used a slightly different solution than before, setting up an object that repr
 I think I'm close to a solution, but something isn't quite right yet
 */
 
-function mazeRunnerAll(maze, x = 0, y = 0) {
+function mazeRunnerAll(originMaze, x = 0, y = 0, path='') {
+  const maze = [...originMaze]
+
   maze.forEach(row => console.log(row));
   console.log(' ');
 
   // Set up the base case
-  if (maze[y][x] === 'e') { return ' and you made it! ' };
+  if (maze[y][x] === 'e') { 
+    let result = `Path to the exit: ${path}`
+    console.log(result)
+    return result };
 
   // Void our current location so we don't backtrack
-  maze[y][x] = '*'; 
+  maze[y][x] = 'A'; 
 
   const availableMoves = {
     up: {
@@ -229,23 +247,24 @@ function mazeRunnerAll(maze, x = 0, y = 0) {
       contains: maze[y][x + 1] ? maze[y][x + 1] : '*',
     },
   }
-  console.log(availableMoves)
+  // console.log(availableMoves)
 
-  let result = ''
 
   for (let prop in availableMoves) {
     let direction = availableMoves[prop]
-    if (direction.contains !== '*') {
-      console.log(direction)
-      result += direction.char + mazeRunnerAll(
-        maze, 
+    if (direction.contains !== '*' && direction.contains !== 'A') {
+      let newPath = path + direction.char;
+      console.log('Starting from ' + 'x:' + x + ' y:' + y)
+      mazeRunnerAll(
+        maze,
         direction.location[0], 
-        direction.location[1]
+        direction.location[1],
+        newPath
         )
     }
   }
 
-  return result;
+  return;
 };
 ```
 
@@ -345,4 +364,6 @@ function toBinary(num) {
     return num % 2 + 10 * (toBinary(Math.floor(num / 2)))
   }
 }
+toBinary(25)
+// 11001
 ```
